@@ -1,0 +1,28 @@
+<ion-view view-title="{{ 'mm.login.registration' | translate }}">
+  <ion-content mm-state-class>
+    <div class="list">
+      <div class="item item-text-wrap">Please enter your information for registration</div>
+      <form>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Email Address</span>
+          <input type="text" placeholder="email" ng-model="credentials.username" autocapitalize="off" autocorrect="off" mm-auto-focus ng-disabled="isBrowserSSO">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">{{ 'mm.login.password' | translate }}</span>
+          <input type="password" placeholder="password" ng-model="credentials.password" ng-disabled="isBrowserSSO">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">First Name</span>
+          <input type="text" placeholder="firstname" ng-model="credentials.firstname" ng-disabled="isBrowserSSO">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Last Name</span>
+          <input type="text" placeholder="lastname" ng-model="credentials.lastname" ng-disabled="isBrowserSSO">
+        </label>
+        <div class="item">
+          <button class="button button-block" ng-click="submitRegister()">Register</button>
+        </div>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>
