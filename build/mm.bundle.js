@@ -10595,9 +10595,10 @@ angular.module('mm.addons.participants', [])
 
 angular.module('mm.addons.pushnotifications', [])
 .constant('mmaPushNotificationsComponent', 'mmaPushNotifications')
-.run(["$mmaPushNotifications", "$ionicPlatform", "$rootScope", "$mmEvents", "$mmLocalNotifications", "mmCoreEventLogin", "mmaPushNotificationsComponent", "mmCoreEventSiteDeleted", function($mmaPushNotifications, $ionicPlatform, $rootScope, $mmEvents, $mmLocalNotifications, mmCoreEventLogin,
+.run(["$mmaPushNotifications", "$ionicPlatform", "$rootScope", "$log", "$mmEvents", "$mmLocalNotifications", "mmCoreEventLogin", "mmaPushNotificationsComponent", "mmCoreEventSiteDeleted", function($mmaPushNotifications, $ionicPlatform, $rootScope, $log, $mmEvents, $mmLocalNotifications, mmCoreEventLogin,
             mmaPushNotificationsComponent, mmCoreEventSiteDeleted) {
     $ionicPlatform.ready(function() {
+        $log.info("DEVICE READY.............going to register DEVICE ID");
         $mmaPushNotifications.registerDevice();
     });
     $rootScope.$on('$cordovaPush:notificationReceived', function(e, notification) {
