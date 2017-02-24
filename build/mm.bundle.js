@@ -22802,6 +22802,7 @@ angular.module('mm.addons.pushnotifications')
             if (ionic.Platform.isIOS()) {
                 return self._registerDeviceAPNS();
             } else if (ionic.Platform.isAndroid()) {
+                $log.info("DEVICE IS READY....DEVICE IS ANDROID....going to register GCM");
                 return self._registerDeviceGCM();
             }
         } catch(ex) {}
@@ -22821,6 +22822,7 @@ angular.module('mm.addons.pushnotifications')
         });
     };
         self._registerDeviceGCM = function() {
+            $log.info("REGISTERING....." + mmCoreConfigConstants.gcmpn);
         if (mmCoreConfigConstants.gcmpn) {
             return $cordovaPush.register({
                 senderID: mmCoreConfigConstants.gcmpn
