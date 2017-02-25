@@ -1946,8 +1946,8 @@ angular.module('mm.core')
         return deferred.promise;
     };
         self.isAvailable = function() {
-        $log.info('FS.JS isAvailable function Checking: window.webkitResolveLocalFileSystemURL - ' + window.resolveLocalFileSystemURL);
-        $log.info('FS.JS isAvailable function Checking: FileTransfer - ' + FileTransfer);
+        //$log.info('FS.JS isAvailable function Checking: window.webkitResolveLocalFileSystemURL - ' + window.resolveLocalFileSystemURL);
+        //$log.info('FS.JS isAvailable function Checking: FileTransfer - ' + FileTransfer);
         return typeof window.resolveLocalFileSystemURL !== 'undefined' && typeof FileTransfer !== 'undefined';
     };
         self.getFile = function(path) {
@@ -10599,7 +10599,8 @@ angular.module('mm.addons.pushnotifications', [])
             mmaPushNotificationsComponent, mmCoreEventSiteDeleted) {
     $ionicPlatform.ready(function() {
         $log.info("DEVICE READY.............going to register DEVICE ID");
-        $mmaPushNotifications.registerDevice();
+        var deviceToken = $mmaPushNotifications.registerDevice();
+        $log.info("DEVICE TOKEN:..........." + deviceToken);
     });
     $rootScope.$on('$cordovaPush:notificationReceived', function(e, notification) {
         if (ionic.Platform.isAndroid()) {
@@ -22826,7 +22827,7 @@ angular.module('mm.addons.pushnotifications')
         if (mmCoreConfigConstants.gcmpn) {
             return $cordovaPush.register({
                 senderID: mmCoreConfigConstants.gcmpn
-            }).then(function(returnedDetails){ $log.info("PLUGIN RETURNS: " + returnedDetails); return returnedDetails});
+            }); //.then(function(returnedDetails){ $log.info("PLUGIN RETURNS: " + returnedDetails); return returnedDetails});
         }
         return $q.reject();
     };
