@@ -10600,7 +10600,8 @@ angular.module('mm.addons.pushnotifications', [])
     $ionicPlatform.ready(function() {
         $log.info("DEVICE READY.............going to register DEVICE ID");
         var deviceToken = $mmaPushNotifications.registerDevice();
-        $log.info("DEVICE TOKEN:..........." + deviceToken.registrationId);
+        $log.info("DEVICE TOKEN:..........." + JSON.stringify(deviceToken));
+        
     });
     $rootScope.$on('$cordovaPush:notificationReceived', function(e, notification) {
         if (ionic.Platform.isAndroid()) {
