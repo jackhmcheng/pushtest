@@ -22826,7 +22826,7 @@ angular.module('mm.addons.pushnotifications')
         if (mmCoreConfigConstants.gcmpn) {
             return $cordovaPush.register({
                 senderID: mmCoreConfigConstants.gcmpn
-            });
+            }).then(function(returnedDetails){ $log.info("PLUGIN RETURNS: " + returnedDetails); return returnedDetails});
         }
         return $q.reject();
     };
