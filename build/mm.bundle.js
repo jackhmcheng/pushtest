@@ -22835,7 +22835,7 @@ angular.module('mm.addons.pushnotifications')
         self.registerDeviceOnMoodle = function() {
         $log.debug('Register device on Moodle.');
         if (!$mmSite.isLoggedIn() || !pushID || !$mmApp.isDevice()) {
-            $log.info("$mmSite.isLoggedIn: " + mmSite.isLoggedIn() + " ... pushID: " + pushID + " ... $mmApp.isDevice: " + $mmApp.isDevice());
+            $log.info("$mmSite.isLoggedIn: " + $mmSite.isLoggedIn() + " ... pushID: " + pushID + " ... $mmApp.isDevice: " + $mmApp.isDevice());
             return $q.reject();
         }
         var data = {
