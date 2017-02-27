@@ -22846,7 +22846,7 @@ angular.module('mm.addons.pushnotifications')
             pushid:     pushID,
             uuid:       $cordovaDevice.getUUID()
         };
-        $log.info("Device to be added to MOODLE: " + JSON.stringify(data);
+        $log.info("Device to be added to MOODLE: " + JSON.stringify(data));
         return $mmSite.write('core_user_add_user_device', data);
     };
         self.unregisterDeviceOnMoodle = function(site) {
