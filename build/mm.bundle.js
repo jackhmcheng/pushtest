@@ -1076,12 +1076,12 @@ angular.module('mm.core')
         var fileId,
             revision,
             promise;
-        $log.info('Now in FILEPOOL.JS...downloadUrl function' + $mmFS.isAvailable());
+        //$log.info('Now in FILEPOOL.JS...downloadUrl function' + $mmFS.isAvailable());
         if ($mmFS.isAvailable()) {
             //$log.info('Try try the function _fixPluginfileURL: ');
             //$log.info(self._fixPluginfileURL(siteId, fileUrl));
             return self._fixPluginfileURL(siteId, fileUrl).then(function(fixedUrl) {
-                $log.info('FILEPOOL.JS: downloadUrl: add wstoken to url: ' + fileUrl + '; ' + fixedUrl);
+                //$log.info('FILEPOOL.JS: downloadUrl: add wstoken to url: ' + fileUrl + '; ' + fixedUrl);
                 fileUrl = fixedUrl;
                 timemodified = timemodified || 0;
                 revision = self.getRevisionFromUrl(fileUrl);
@@ -1091,9 +1091,9 @@ angular.module('mm.core')
             }).then(function() {
 
                 return self._hasFileInPool(siteId, fileId).then(function(fileObject) {
-                    $log.info('File in pool');
+                    //$log.info('File in pool');
                     if (typeof fileObject === 'undefined') {
-                        $log.info('File in pool...BUT no file found, need to download');
+                        //$log.info('File in pool...BUT no file found, need to download');
                         return self._downloadForPoolByUrl(siteId, fileUrl, revision, timemodified, filePath);
                     } else if (self._isFileOutdated(fileObject, revision, timemodified) && $mmApp.isOnline() && !ignoreStale) {
                         return self._downloadForPoolByUrl(siteId, fileUrl, revision, timemodified, filePath, fileObject);
@@ -1109,7 +1109,7 @@ angular.module('mm.core')
                         return self._downloadForPoolByUrl(siteId, fileUrl, revision, timemodified, filePath, fileObject);
                     });
                 }, function() {
-                    $log.info('File NOT in pool, need download');
+                    //$log.info('File NOT in pool, need download');
                     return self._downloadForPoolByUrl(siteId, fileUrl, revision, timemodified, filePath);
                 })
                 .then(function(response) {
@@ -1124,7 +1124,7 @@ angular.module('mm.core')
                 });
             });
         } else {
-            $log.info('mmFS is not available??!!');
+            //$log.info('mmFS is not available??!!');
             return $q.reject();
         }
     };
@@ -1177,11 +1177,11 @@ angular.module('mm.core')
         return id;
     };
         self._fixPluginfileURL = function(siteId, fileUrl) {
-        $log.info('Now in FILEPOOL.JS: _fixPluginfileURL function...');
+        //$log.info('Now in FILEPOOL.JS: _fixPluginfileURL function...');
         
 
         return $mmSitesManager.getSite(siteId).then(function(site) {
-             $log.info('Got site successful from mmSitesManager, calling fixPluginfileURL function in sitesfactory');
+             //$log.info('Got site successful from mmSitesManager, calling fixPluginfileURL function in sitesfactory');
               //return 'I am ok here in FILEPOOL: _fixPluginfileURL';
             return site.fixPluginfileURL(fileUrl);
         });
@@ -3121,10 +3121,10 @@ angular.module('mm.core')
             method = site.getCompatibleFunction(method);
             if (site.getInfo() && !site.wsAvailable(method, false)) {
                 if (site.wsAvailable(mmCoreWSPrefix + method, false)) {
-                    $log.info("Using compatibility WS method '" + mmCoreWSPrefix + method + "'");
+                    //$log.info("Using compatibility WS method '" + mmCoreWSPrefix + method + "'");
                     method = mmCoreWSPrefix + method;
                 } else {
-                    $log.error("WS function '" + method + "' is not available, even in compatibility mode.");
+                    //$log.error("WS function '" + method + "' is not available, even in compatibility mode.");
                     $mmLang.translateAndRejectDeferred(deferred, 'mm.core.wsfunctionnotavailable');
                     return deferred.promise;
                 }
@@ -3231,7 +3231,7 @@ angular.module('mm.core')
             });
         };
                 Site.prototype.fixPluginfileURL = function(url) {
-            $log.info('Now in SITESFACTORY.JS: fixPluginfileURL function...calling fixPluginfileURL function in UTIL.JS with: ' + url +'; ' + this.token);
+            //$log.info('Now in SITESFACTORY.JS: fixPluginfileURL function...calling fixPluginfileURL function in UTIL.JS with: ' + url +'; ' + this.token);
             return $mmUtil.fixPluginfileURL(url, this.token);
         };
                 Site.prototype.deleteDB = function() {
@@ -4325,7 +4325,7 @@ angular.module('mm.core')
             return /^http(s)?\:\/\/.+/i.test(url);
         };
                 self.fixPluginfileURL = function(url, token) {
-            $log.info('Now in UTIL.JS: fixPluginfileURL function...');
+            //$log.info('Now in UTIL.JS: fixPluginfileURL function...');
             if (!url) {
                 return '';
             }
@@ -4347,7 +4347,7 @@ angular.module('mm.core')
             if (url.indexOf('/webservice/pluginfile') == -1) {
                 url = url.replace('/pluginfile', '/webservice/pluginfile');
             }
-            $log.info('URL modified as: ' + url);
+            //$log.info('URL modified as: ' + url);
             return url;
         };
                 self.openFile = function(path) {
@@ -4836,7 +4836,7 @@ angular.module('mm.core')
     }
         self.downloadFile = function(url, path, background) {
         $log.debug('Downloading file ' + url);
-        $log.info('Start prepare download file' + url);
+        //$log.info('Start prepare download file' + url);
         var tmpPath = path + '.tmp';
         return $mmFS.createFile(tmpPath).then(function(fileEntry) {
             return $cordovaFileTransfer.download(url, fileEntry.toURL(), { encodeURI: false }, true).then(function() {
@@ -5213,7 +5213,7 @@ angular.module('mm.core')
         });
     }
         function downloadFile(scope, siteid, fileurl, component, componentid, timemodified) {
-        $log.info('Now pass to function downloadFile in FILE.JS');
+        //$log.info('Now pass to function downloadFile in FILE.JS');
 
         if (!$mmSite.canDownloadFiles()) {
             $mmUtil.showErrorModal('mm.core.cannotdownloadfiles', true);
@@ -5221,7 +5221,7 @@ angular.module('mm.core')
         }
         scope.isDownloading = true;
 
-        $log.info('FILE.JS: downloadFile ready to download - ' + siteid + '; ' + fileurl + '; ' + component + '; ' + componentid + '; ' + timemodified);
+        //$log.info('FILE.JS: downloadFile ready to download - ' + siteid + '; ' + fileurl + '; ' + component + '; ' + componentid + '; ' + timemodified);
         return $mmFilepool.downloadUrl(siteid, fileurl, true, component, componentid, timemodified).then(function(localUrl) {
             getState(scope, siteid, fileurl, timemodified);
             return localUrl;
@@ -5273,12 +5273,12 @@ angular.module('mm.core')
                     return;
                 }
 
-                $log.info('FILE.JS - function download: Checkings done and starting download; Open after download? ' + openAfterDownload);
+                //$log.info('FILE.JS - function download: Checkings done and starting download; Open after download? ' + openAfterDownload);
 
                 if (openAfterDownload) {
-                    $log.info('Direct download request, so function downloadFile will be called: '  + siteid + '; ' + fileurl + '; ' + component + '; ' + componentid, + '; ' + timemodified);
+                    //$log.info('Direct download request, so function downloadFile will be called: '  + siteid + '; ' + fileurl + '; ' + component + '; ' + componentid, + '; ' + timemodified);
                     downloadFile(scope, siteid, fileurl, component, componentid, timemodified).then(function(localUrl) {
-                        $log.info('File downloaded to path: ' + localUrl);
+                        //$log.info('File downloaded to path: ' + localUrl);
                         $mmUtil.openFile(localUrl).catch(function(error) {
                             $mmUtil.showErrorModal(error);
                         });
@@ -22835,6 +22835,7 @@ angular.module('mm.addons.pushnotifications')
         self.registerDeviceOnMoodle = function() {
         $log.debug('Register device on Moodle.');
         if (!$mmSite.isLoggedIn() || !pushID || !$mmApp.isDevice()) {
+            $log.info("$mmSite.isLoggedIn: " + mmSite.isLoggedIn() + " ... pushID: " + pushID + " ... $mmApp.isDevice: " + $mmApp.isDevice());
             return $q.reject();
         }
         var data = {
